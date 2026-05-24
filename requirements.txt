@@ -1,0 +1,25 @@
+# Requirements for Document Extraction Pipeline
+# Install with: pip install -r requirements.txt
+
+# Azure Identity (DefaultAzureCredential — Managed Identity + az login)
+azure-identity>=1.15.0
+
+# Azure Cosmos DB
+azure-cosmos>=4.7.0
+
+# Azure Blob Storage
+azure-storage-blob>=12.19.0
+
+# Azure OpenAI (GPT-4.1 gap-fill)
+openai>=1.12.0
+
+# OpenTelemetry + Azure Monitor (observability)
+opentelemetry-api>=1.22.0
+opentelemetry-sdk>=1.22.0
+azure-monitor-opentelemetry-exporter>=1.0.0b21
+
+# HTTP requests (CU API interaction)
+requests>=2.31.0
+
+# Environment variable loading
+python-dotenv>=1.0.0

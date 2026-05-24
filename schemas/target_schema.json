@@ -1,0 +1,158 @@
+{
+  "$schema_version": "1.0",
+  "$description": "Target schema defining all extractable fields. Customize this for your domain.",
+  "sections": {
+    "documentInfo": {
+      "$category": "extractable",
+      "$description": "Core document identification fields",
+      "documentNumber": {
+        "type": "string",
+        "description": "Primary document identifier (e.g., plan number, claim ID, invoice number)",
+        "extractable": true,
+        "required": true
+      },
+      "documentVariant": {
+        "type": "string",
+        "description": "Document variant or version letter (e.g., A, B, C)",
+        "extractable": true,
+        "required": false
+      },
+      "documentTitle": {
+        "type": "string",
+        "description": "Document title or marketing name",
+        "extractable": true,
+        "required": false
+      },
+      "issueDate": {
+        "type": "string",
+        "description": "Date the document was issued (ISO format preferred)",
+        "extractable": true,
+        "required": false
+      },
+      "yearOfCreation": {
+        "type": "integer",
+        "description": "Year the document was created (4-digit)",
+        "extractable": true,
+        "required": false
+      },
+      "firmName": {
+        "type": "string",
+        "description": "Originating firm or company name",
+        "extractable": true,
+        "required": false
+      },
+      "authorName": {
+        "type": "string",
+        "description": "Document author or engineer name",
+        "extractable": true,
+        "required": false
+      }
+    },
+    "primaryMetrics": {
+      "$category": "extractable",
+      "$description": "Primary quantitative measurements extracted from the document",
+      "totalArea": {
+        "type": "number",
+        "description": "Total area in primary units (sq ft, sq m, etc.)",
+        "extractable": true,
+        "required": true
+      },
+      "conditionedArea": {
+        "type": "number",
+        "description": "Conditioned/usable area (subset of total)",
+        "extractable": true,
+        "required": true
+      },
+      "secondaryArea": {
+        "type": "number",
+        "description": "Secondary area measurement (e.g., second floor, annex)",
+        "extractable": true,
+        "required": false
+      },
+      "auxiliaryArea": {
+        "type": "number",
+        "description": "Auxiliary/support area (e.g., garage, storage, utility)",
+        "extractable": true,
+        "required": false
+      },
+      "stories": {
+        "type": "integer",
+        "description": "Number of levels/stories/floors",
+        "extractable": true,
+        "required": true
+      }
+    },
+    "structuralDetails": {
+      "$category": "extractable",
+      "$description": "Structural and component details",
+      "primaryRooms": {
+        "type": "integer",
+        "description": "Count of primary rooms (bedrooms, offices, units)",
+        "extractable": true,
+        "required": true
+      },
+      "secondaryRooms": {
+        "type": "integer",
+        "description": "Count of secondary rooms (bathrooms, utility rooms)",
+        "extractable": true,
+        "required": true
+      },
+      "features": {
+        "$type": "object",
+        "$description": "Boolean feature flags",
+        "hasFeatureA": {
+          "type": "boolean",
+          "description": "Whether feature A is present (e.g., garage, elevator, balcony)",
+          "extractable": true,
+          "required": false
+        },
+        "hasFeatureB": {
+          "type": "boolean",
+          "description": "Whether feature B is present (e.g., pool, basement, attic)",
+          "extractable": true,
+          "required": false
+        }
+      },
+      "materials": {
+        "type": "string_list",
+        "description": "List of materials identified (e.g., brick, steel, concrete)",
+        "extractable": true,
+        "required": false
+      },
+      "structuralType": {
+        "type": "string",
+        "description": "Primary structural type classification",
+        "extractable": true,
+        "required": false
+      }
+    },
+    "systemFields": {
+      "$category": "system",
+      "$description": "System-managed fields — NOT extractable, set by pipeline",
+      "division": {
+        "type": "string",
+        "description": "Business division (set by pipeline context)"
+      },
+      "region": {
+        "type": "string",
+        "description": "Geographic region (set by pipeline context)"
+      },
+      "createdBy": {
+        "type": "string",
+        "description": "Pipeline run ID that created this record"
+      },
+      "createdAt": {
+        "type": "string",
+        "description": "ISO timestamp of creation"
+      },
+      "updatedAt": {
+        "type": "string",
+        "description": "ISO timestamp of last update"
+      },
+      "versionId": {
+        "type": "integer",
+        "description": "Document version (incremented on re-processing)"
+      }
+    }
+  }
+}
