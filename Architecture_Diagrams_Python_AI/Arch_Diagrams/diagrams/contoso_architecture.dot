@@ -1,0 +1,437 @@
+digraph "Contoso Medical Portal Architecture" {
+	graph [bb="0,0,2220.2,2175",
+		bgcolor=white,
+		compound=true,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=14,
+		label="Contoso Medical Portal Architecture",
+		lheight=0.24,
+		lp="1110.1,12.625",
+		lwidth=3.02,
+		nodesep=0.8,
+		pad=0.5,
+		rankdir=TB,
+		ranksep=1.2,
+		splines=ortho
+	];
+	node [fixedsize=true,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		height=1.4,
+		imagescale=true,
+		label="\N",
+		labelloc=b,
+		shape=box,
+		style=rounded,
+		width=1.4
+	];
+	edge [color="#7B8894"];
+	subgraph "cluster_vnet-contoso-auea-001
+(10.10.0.0/16)" {
+		graph [bb="8,285.85,1621,1702.6",
+			bgcolor="#E8F4F8",
+			fontname="Sans-Serif",
+			fontsize=14,
+			label="vnet-contoso-auea-001
+(10.10.0.0/16)",
+			labeljust=l,
+			lheight=0.48,
+			lp="86.875,1681.4",
+			lwidth=1.97,
+			margin=25,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=dashed
+		];
+		subgraph "cluster_snet-frontend
+(10.10.1.0/24)" {
+			graph [bb="1148,1130.5,1437,1635.1",
+				bgcolor="#E3F2FD",
+				fontname="Sans-Serif",
+				fontsize=13,
+				label="snet-frontend
+(10.10.1.0/24)",
+				labeljust=l,
+				lheight=0.46,
+				lp="1196.5,1614.6",
+				lwidth=1.12,
+				margin=15,
+				pencolor="#AEB6BE",
+				rankdir=LR,
+				shape=box,
+				style=rounded
+			];
+			ef82bf206df34565bf7d9db3bc4ef817	[height=1.9,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/network\network-security-groups-classic.png",
+				label="NSG-Frontend",
+				pos="1213,1496.3",
+				shape=none];
+			"2cca1c5e2b1a497f9f06ce394f8bb6ae"	[height=2.3,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/network\application-gateway.png",
+				label="agw-contoso
+(WAF)",
+				pos="1372,1496.3",
+				shape=none];
+			dd1bf5d750354fe3904ab8820a6af32d	[height=2.3,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/compute\app-services.png",
+				label="app-frontend-portal
+(Web App)",
+				pos="1372,1228.2",
+				shape=none];
+			"2cca1c5e2b1a497f9f06ce394f8bb6ae" -> dd1bf5d750354fe3904ab8820a6af32d	[dir=forward,
+				fontcolor="#2D3436",
+				fontname="Sans-Serif",
+				fontsize=13,
+				label=HTTPS,
+				lp="1391.5,1362.3",
+				pos="e,1372,1310.6 1372,1413.7 1372,1413.7 1372,1322.1 1372,1322.1"];
+		}
+		subgraph "cluster_snet-backend
+(10.10.2.0/24)" {
+			graph [bb="1148,550.15,1596,1078",
+				bgcolor="#F3E5F5",
+				fontname="Sans-Serif",
+				fontsize=13,
+				label="snet-backend
+(10.10.2.0/24)",
+				labeljust=l,
+				lheight=0.46,
+				lp="1196.5,1057.5",
+				lwidth=1.12,
+				margin=15,
+				pencolor="#AEB6BE",
+				rankdir=LR,
+				shape=box,
+				style=rounded
+			];
+			e2fad9dbaee044c080018a899de27693	[height=1.9,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/network\network-security-groups-classic.png",
+				label="NSG-Backend",
+				pos="1213,939.15",
+				shape=none];
+			"1fac29cd1f2d40659037efe4af400888"	[height=2.3,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/compute\app-services.png",
+				label="app-order-api
+(Backend API)",
+				pos="1372,939.15",
+				shape=none];
+			"68783425dc9249e6b4d0b21b037c3beb"	[height=2.3,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/compute\function-apps.png",
+				label="func-order-processor
+(Function App)",
+				pos="1531,939.15",
+				shape=none];
+			df21f9a7dede4ce6b53421e026eb7f5e	[height=2.3,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/integration\service-bus.png",
+				label="sb-contoso-orders
+(Service Bus)",
+				pos="1217,647.95",
+				shape=none];
+			"68783425dc9249e6b4d0b21b037c3beb" -> df21f9a7dede4ce6b53421e026eb7f5e	[dir=forward,
+				fontcolor="#2D3436",
+				fontname="Sans-Serif",
+				fontsize=13,
+				label=Message,
+				lp="1245.8,796.85",
+				pos="e,1267.4,675.25 1524.1,856.37 1524.1,778.98 1524.1,675.25 1524.1,675.25 1524.1,675.25 1278.9,675.25 1278.9,675.25"];
+			df21f9a7dede4ce6b53421e026eb7f5e -> "68783425dc9249e6b4d0b21b037c3beb"	[dir=forward,
+				fontcolor="#2D3436",
+				fontname="Sans-Serif",
+				fontsize=13,
+				label=Process,
+				lp="1355.8,796.85",
+				pos="e,1538.6,856.61 1267.2,620.25 1357.7,620.25 1538.6,620.25 1538.6,620.25 1538.6,620.25 1538.6,845.1 1538.6,845.1"];
+		}
+		subgraph "cluster_snet-data
+(10.10.3.0/24)" {
+			graph [bb="33,310.85,640,772.35",
+				bgcolor="#FFF3E0",
+				fontname="Sans-Serif",
+				fontsize=13,
+				label="snet-data
+(10.10.3.0/24)",
+				labeljust=l,
+				lheight=0.46,
+				lp="81.5,751.85",
+				lwidth=1.12,
+				margin=15,
+				pencolor="#AEB6BE",
+				rankdir=LR,
+				shape=box,
+				style=rounded
+			];
+			d14079b88b9a462589a44c72b0e42337	[height=1.9,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/network\network-security-groups-classic.png",
+				label="NSG-Data",
+				pos="98,647.95",
+				shape=none];
+			cab72ceca71749de96af92366ef9c54b	[height=1.9,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/database\sql-servers.png",
+				label="sqlsrv-contoso",
+				pos="257,647.95",
+				shape=none];
+			abfbf7cb49f24fdc87e4f03fc5ea27a6	[height=1.9,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/database\sql-databases.png",
+				label="sqldb-orders",
+				pos="575,394.25",
+				shape=none];
+			cab72ceca71749de96af92366ef9c54b -> abfbf7cb49f24fdc87e4f03fc5ea27a6	[dir=forward,
+				fontcolor="#2D3436",
+				fontname="Sans-Serif",
+				fontsize=13,
+				label=hosts,
+				lp="431.38,513.9",
+				pos="e,524.61,394.25 257,579.63 257,504.49 257,394.25 257,394.25 257,394.25 513.1,394.25 513.1,394.25"];
+			a3257806d647446f9d33c89f22f164ab	[height=1.9,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/storage\storage-accounts.png",
+				label=stcontosodata001,
+				pos="416,647.95",
+				shape=none];
+			"61a37873640b41ed8d2c11ef02075c7b"	[height=1.9,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/security\key-vaults.png",
+				label="kv-contoso-prod",
+				pos="575,647.95",
+				shape=none];
+		}
+		subgraph "cluster_Firewall & Routing" {
+			graph [bb="834,550.15,1123,770.25",
+				bgcolor="#FFEBEE",
+				fontname="Sans-Serif",
+				fontsize=13,
+				label="Firewall & Routing",
+				labeljust=l,
+				lheight=0.23,
+				lp="894.5,758",
+				lwidth=1.46,
+				margin=15,
+				pencolor="#AEB6BE",
+				rankdir=LR,
+				shape=box,
+				style=rounded
+			];
+			"5ef7d07167814e678c91e5f33f712146"	[height=2.3,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/network\firewall.png",
+				label="azfw-contoso
+(Azure Firewall)",
+				pos="899,647.95",
+				shape=none];
+			"101ff8fe79ed4c39b51fe5c437ea8766"	[height=2.3,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/network\route-tables.png",
+				label="Route Table
+(Default to FW)",
+				pos="1058,647.95",
+				shape=none];
+		}
+		dd1bf5d750354fe3904ab8820a6af32d -> "1fac29cd1f2d40659037efe4af400888"	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label=API,
+			lp="1381.8,1094.2",
+			pos="e,1372,1021.7 1372,1145.8 1372,1145.8 1372,1033.2 1372,1033.2"];
+		dd1bf5d750354fe3904ab8820a6af32d -> "61a37873640b41ed8d2c11ef02075c7b"	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label=Secrets,
+			lp="631,939.15",
+			pos="e,549.8,716.25 1321.8,1256.2 1143.3,1256.2 549.8,1256.2 549.8,1256.2 549.8,1256.2 549.8,727.77 549.8,727.77",
+			style=dotted];
+		dd1bf5d750354fe3904ab8820a6af32d -> "5ef7d07167814e678c91e5f33f712146"	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label=Outbound,
+			lp="831.88,939.15",
+			pos="e,873.8,730.63 1321.9,1200.2 1195.6,1200.2 873.8,1200.2 873.8,1200.2 873.8,1200.2 873.8,742.15 873.8,742.15",
+			style=dashed];
+		"1fac29cd1f2d40659037efe4af400888" -> abfbf7cb49f24fdc87e4f03fc5ea27a6	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="SQL
+(Private)",
+			lp="1407.8,647.95",
+			pos="e,625.34,428.25 1346.8,856.5 1346.8,711.9 1346.8,428.25 1346.8,428.25 1346.8,428.25 636.86,428.25 636.86,428.25"];
+		"1fac29cd1f2d40659037efe4af400888" -> a3257806d647446f9d33c89f22f164ab	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="Storage
+(Private)",
+			lp="509.75,796.85",
+			pos="e,416,716.14 1321.6,867.25 1124.4,867.25 416,867.25 416,867.25 416,867.25 416,727.65 416,727.65"];
+		"1fac29cd1f2d40659037efe4af400888" -> "61a37873640b41ed8d2c11ef02075c7b"	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label=Secrets,
+			lp="735,796.85",
+			pos="e,575,716.07 1321.8,863.25 1147,863.25 575,863.25 575,863.25 575,863.25 575,727.59 575,727.59",
+			style=dotted];
+		"1fac29cd1f2d40659037efe4af400888" -> "5ef7d07167814e678c91e5f33f712146"	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label=Outbound,
+			lp="895.88,796.85",
+			pos="e,899,730.64 1321.8,860.25 1200.1,860.25 899,860.25 899,860.25 899,860.25 899,742.15 899,742.15",
+			style=dashed];
+		"68783425dc9249e6b4d0b21b037c3beb" -> abfbf7cb49f24fdc87e4f03fc5ea27a6	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="SQL
+(Private)",
+			lp="765.75,647.95",
+			pos="e,625.19,394.25 1553.1,856.39 1553.1,703.96 1553.1,394.25 1553.1,394.25 1553.1,394.25 636.7,394.25 636.7,394.25"];
+		"68783425dc9249e6b4d0b21b037c3beb" -> "61a37873640b41ed8d2c11ef02075c7b"	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label=Secrets,
+			lp="1009,796.85",
+			pos="e,600.2,716.07 1495.1,856.54 1495.1,833.31 1495.1,814.25 1495.1,814.25 1495.1,814.25 600.2,814.25 600.2,814.25 600.2,814.25 600.2,\
+727.58 600.2,727.58",
+			style=dotted];
+		"68783425dc9249e6b4d0b21b037c3beb" -> "5ef7d07167814e678c91e5f33f712146"	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label=Outbound,
+			lp="1128.9,796.85",
+			pos="e,924.2,730.51 1509.6,856.68 1509.6,814.63 1509.6,772.25 1509.6,772.25 1509.6,772.25 924.2,772.25 924.2,772.25 924.2,772.25 924.2,\
+742.03 924.2,742.03",
+			style=dashed];
+	}
+	subgraph cluster_Monitoring {
+		graph [bb="1553,33.25,1842,253.35",
+			bgcolor="#E8F5E9",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label=Monitoring,
+			labeljust=l,
+			lheight=0.23,
+			lp="1591.4,241.1",
+			lwidth=0.84,
+			margin=15,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		a65a34aec3ce4e6e8abe7429e12600a1	[height=2.3,
+			image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/analytics\log-analytics-workspaces.png",
+			label="law-contoso-prod
+(Log Analytics)",
+			pos="1618,131.05",
+			shape=none];
+		"19412c1451434855bf878e8119346584"	[height=2.3,
+			image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/devops\application-insights.png",
+			label="appi-contoso
+(App Insights)",
+			pos="1777,131.05",
+			shape=none];
+	}
+	"9f13b4ccf464448c82eef5c06c1fb985"	[height=1.9,
+		image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/onprem/client\users.png",
+		label=Users,
+		pos="1372,2106.6",
+		shape=none];
+	"1d3070ab0bc0415c9c802eff2faa853e"	[height=2.3,
+		image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/network\front-doors.png",
+		label="afd-contoso
+(Azure Front Door)",
+		pos="1372,1852.9",
+		shape=none];
+	"9f13b4ccf464448c82eef5c06c1fb985" -> "1d3070ab0bc0415c9c802eff2faa853e"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label=HTTPS,
+		lp="1391.5,1987",
+		pos="e,1372,1935.4 1372,2038.3 1372,2038.3 1372,1946.9 1372,1946.9"];
+	"1d3070ab0bc0415c9c802eff2faa853e" -> "2cca1c5e2b1a497f9f06ce394f8bb6ae"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label=HTTPS,
+		lp="1391.5,1718.9",
+		pos="e,1372,1578.9 1372,1770.2 1372,1770.2 1372,1590.4 1372,1590.4"];
+	dd1bf5d750354fe3904ab8820a6af32d -> a65a34aec3ce4e6e8abe7429e12600a1	[color=green,
+		dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label=Logs,
+		lp="2034.5,647.95",
+		pos="e,1624.9,213.62 1422.3,1200.2 1496,1200.2 1624.9,1200.2 1624.9,1200.2 1624.9,1200.2 1624.9,225.13 1624.9,225.13",
+		style=dotted];
+	dd1bf5d750354fe3904ab8820a6af32d -> "19412c1451434855bf878e8119346584"	[color=green,
+		dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label=Telemetry,
+		lp="2192.1,647.95",
+		pos="e,1802.2,213.79 1422.2,1256.2 1535.7,1256.2 1802.2,1256.2 1802.2,1256.2 1802.2,1256.2 1802.2,225.3 1802.2,225.3",
+		style=dotted];
+	"1fac29cd1f2d40659037efe4af400888" -> a65a34aec3ce4e6e8abe7429e12600a1	[color=green,
+		dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label=Logs,
+		lp="1534.5,513.9",
+		pos="e,1567.6,158.25 1372,856.69 1372,655.95 1372,158.25 1372,158.25 1372,158.25 1556.1,158.25 1556.1,158.25",
+		style=dotted];
+	"1fac29cd1f2d40659037efe4af400888" -> "19412c1451434855bf878e8119346584"	[color=green,
+		dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label=Telemetry,
+		lp="1785.1,513.9",
+		pos="e,1751.8,213.73 1397.2,856.47 1397.2,732.86 1397.2,514.25 1397.2,514.25 1397.2,514.25 1751.8,514.25 1751.8,514.25 1751.8,514.25 \
+1751.8,225.24 1751.8,225.24",
+		style=dotted];
+	"68783425dc9249e6b4d0b21b037c3beb" -> a65a34aec3ce4e6e8abe7429e12600a1	[color=green,
+		dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label=Logs,
+		lp="1652.5,513.9",
+		pos="e,1576.8,213.62 1576.8,856.47 1576.8,856.47 1576.8,225.13 1576.8,225.13",
+		style=dotted];
+	"68783425dc9249e6b4d0b21b037c3beb" -> "19412c1451434855bf878e8119346584"	[color=green,
+		dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label=Telemetry,
+		lp="1909.1,513.9",
+		pos="e,1777,213.74 1581.4,939.25 1653.3,939.25 1777,939.25 1777,939.25 1777,939.25 1777,225.26 1777,225.26",
+		style=dotted];
+	abfbf7cb49f24fdc87e4f03fc5ea27a6 -> a65a34aec3ce4e6e8abe7429e12600a1	[color=green,
+		dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label=Logs,
+		lp="973.5,269.6",
+		pos="e,1572.2,213.8 625.13,360.25 827.35,360.25 1572.2,360.25 1572.2,360.25 1572.2,360.25 1572.2,225.31 1572.2,225.31",
+		style=dotted];
+	a3257806d647446f9d33c89f22f164ab -> a65a34aec3ce4e6e8abe7429e12600a1	[color=green,
+		dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label=Logs,
+		lp="1419.5,394.25",
+		pos="e,1567.9,103.25 416,579.79 416,433.63 416,103.25 416,103.25 416,103.25 1556.4,103.25 1556.4,103.25",
+		style=dotted];
+}

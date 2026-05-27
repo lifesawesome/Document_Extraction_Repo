@@ -1,0 +1,41 @@
+# Azure Architecture Diagram Generation Requirements
+# Install with: pip install -r requirements.txt
+
+# IMPORTANT: GraphViz must be installed on the system first
+# Download from: https://graphviz.org/download/
+# Windows: Install to C:\Program Files\Graphviz
+
+# Core diagram generation library
+diagrams==0.24.4
+
+# Graph visualization engine (Python wrapper)
+graphviz==0.20.3
+
+# GraphViz Python bindings (C extension)
+# Note: Installation requires MSVC compiler and GraphViz dev files
+# Install with: pip install --config-settings="--global-option=build_ext" 
+#               --config-settings="--global-option=-IC:\Program Files\Graphviz\include" 
+#               --config-settings="--global-option=-LC:\Program Files\Graphviz\lib" pygraphviz
+pygraphviz==1.14
+
+# Convert GraphViz DOT files to Draw.io format
+graphviz2drawio==1.1.0
+
+# Additional dependencies (installed automatically with above packages)
+puremagic==1.30
+svg.path==7.0
+Jinja2==3.1.6
+MarkupSafe==3.0.3
+pre-commit==4.4.0
+cfgv==3.4.0
+identify==2.6.15
+nodeenv==1.9.1
+PyYAML==6.0.3
+virtualenv==20.35.4
+distlib==0.4.0
+filelock==3.20.0
+platformdirs==4.5.0
+
+# Optional: For ARM/Bicep template parsing
+# azure-mgmt-resource>=23.0.0
+# pybicep>=0.4.0

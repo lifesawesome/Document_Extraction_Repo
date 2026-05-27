@@ -1,0 +1,321 @@
+digraph "IIS + SQL Server 3-Tier Architecture (Bicep Demo)" {
+	graph [bb="0,0,930,1951.3",
+		bgcolor=white,
+		compound=true,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=14,
+		label="IIS + SQL Server 3-Tier Architecture (Bicep Demo)",
+		lheight=0.24,
+		lp="465,12.625",
+		lwidth=4.35,
+		nodesep=1.0,
+		pad=0.5,
+		rankdir=TB,
+		ranksep=1.5,
+		splines=ortho
+	];
+	node [fixedsize=true,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		height=1.4,
+		imagescale=true,
+		label="\N",
+		labelloc=b,
+		shape=box,
+		style=rounded,
+		width=1.4
+	];
+	edge [color="#7B8894"];
+	subgraph "cluster_cust1Vnet
+(10.0.0.0/16)" {
+		graph [bb="8,33.25,922,1432.6",
+			bgcolor="#E8F4F8",
+			fontname="Sans-Serif",
+			fontsize=14,
+			label="cust1Vnet
+(10.0.0.0/16)",
+			labeljust=l,
+			labelloc=t,
+			lheight=0.48,
+			lp="56.875,1411.3",
+			lwidth=1.14,
+			margin=25,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=dashed
+		];
+		subgraph "cluster_Load Balancer" {
+			graph [bb="33,1109.1,163,1358",
+				bgcolor="#F3E5F5",
+				fontname="Sans-Serif",
+				fontsize=13,
+				label="Load Balancer",
+				labeljust=l,
+				labelloc=t,
+				lheight=0.23,
+				lp="81.125,1345.7",
+				lwidth=1.11,
+				margin=15,
+				pencolor="#AEB6BE",
+				rankdir=LR,
+				shape=box,
+				style=rounded
+			];
+			"33dbf7c3632c444ba6d103e70589c9d7"	[height=2.7,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/network\load-balancers.png",
+				label="cust1webSrvlb
+(Load Balancer)
+Port 80",
+				pos="98,1221.3",
+				shape=none];
+		}
+		subgraph "cluster_FESubnetName
+(10.0.0.0/24)" {
+			graph [bb="188,72.05,531,1365.1",
+				bgcolor="#E3F2FD",
+				fontname="Sans-Serif",
+				fontsize=13,
+				label="FESubnetName
+(10.0.0.0/24)",
+				labeljust=l,
+				labelloc=t,
+				lheight=0.46,
+				lp="240.62,1344.6",
+				lwidth=1.24,
+				margin=20,
+				pencolor="#AEB6BE",
+				rankdir=LR,
+				shape=box,
+				style=rounded
+			];
+			subgraph "cluster_Availability Set" {
+				graph [bb="208,92.05,511,978.75",
+					bgcolor="#E8F5E9",
+					fontname="Sans-Serif",
+					fontsize=13,
+					label="Availability Set",
+					labeljust=l,
+					labelloc=t,
+					lheight=0.23,
+					lp="257.62,966.5",
+					lwidth=1.16,
+					margin=15,
+					pencolor="#AEB6BE",
+					rankdir=LR,
+					shape=box,
+					style=rounded
+				];
+				da5d7c3bf8b042cbbc35167efa831b41	[height=2.3,
+					image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/compute\availability-sets.png",
+					label="cust1webSrvAS
+(2 Fault/20 Update Domains)",
+					pos="357,189.85",
+					shape=none];
+				"9237415dd9024286964fd8c64855628e"	[height=3.1,
+					image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/compute\vm.png",
+					label="cust1webSrv0
+Windows Server 2022
+IIS Web Server
+D2s_v3",
+					pos="446,537.55",
+					shape=none];
+				"9237415dd9024286964fd8c64855628e" -> da5d7c3bf8b042cbbc35167efa831b41	[color=green,
+					dir=forward,
+					fontcolor="#2D3436",
+					fontname="Sans-Serif",
+					fontsize=13,
+					label=Member,
+					lp="442.25,363.7",
+					pos="e,401.5,272.57 401.5,426.1 401.5,426.1 401.5,284.08 401.5,284.08",
+					style=dotted];
+				"66ab7533c60e44b09a65c4b97953e8ee"	[height=3.1,
+					image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/compute\vm.png",
+					label="cust1webSrv1
+Windows Server 2022
+IIS Web Server
+D2s_v3",
+					pos="273,537.55",
+					shape=none];
+				"66ab7533c60e44b09a65c4b97953e8ee" -> da5d7c3bf8b042cbbc35167efa831b41	[color=green,
+					dir=forward,
+					fontcolor="#2D3436",
+					fontname="Sans-Serif",
+					fontsize=13,
+					label=Member,
+					lp="318.25,363.7",
+					pos="e,312.2,272.57 312.2,426.1 312.2,426.1 312.2,284.08 312.2,284.08",
+					style=dotted];
+				d9fb2414efae44cf8a090deec35b69bc	[height=1.9,
+					image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/network\network-interfaces.png",
+					label=NIC0,
+					pos="446,870.85",
+					shape=none];
+				d9fb2414efae44cf8a090deec35b69bc -> "9237415dd9024286964fd8c64855628e"	[color=darkblue,
+					dir=forward,
+					fontcolor="#2D3436",
+					fontname="Sans-Serif",
+					fontsize=13,
+					pos="e,446,649.01 446,802.6 446,802.6 446,660.53 446,660.53"];
+				"6e684d6b47584a5a9f857cef23327fa0"	[height=1.9,
+					image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/network\network-interfaces.png",
+					label=NIC1,
+					pos="273,870.85",
+					shape=none];
+				"6e684d6b47584a5a9f857cef23327fa0" -> "66ab7533c60e44b09a65c4b97953e8ee"	[color=darkblue,
+					dir=forward,
+					fontcolor="#2D3436",
+					fontname="Sans-Serif",
+					fontsize=13,
+					pos="e,273,649.01 273,802.6 273,802.6 273,660.53 273,660.53"];
+			}
+			"0d37f24e52b94e78ba695bc8e25626d8"	[height=2.3,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/network\network-security-groups-classic.png",
+				label="feNsg
+(Allow HTTP 80)",
+				pos="446,1221.3",
+				shape=none];
+			"0d37f24e52b94e78ba695bc8e25626d8" -> d9fb2414efae44cf8a090deec35b69bc	[color=red,
+				dir=forward,
+				fontcolor="#2D3436",
+				fontname="Sans-Serif",
+				fontsize=13,
+				label=Protects,
+				lp="469.25,1053.6",
+				pos="e,462.8,939.06 462.8,1138.7 462.8,1138.7 462.8,950.58 462.8,950.58",
+				style=dotted];
+		}
+		subgraph "cluster_DBSubnetName
+(10.0.2.0/24)" {
+			graph [bb="556,58.25,897,1029.1",
+				bgcolor="#FFF3E0",
+				fontname="Sans-Serif",
+				fontsize=13,
+				label="DBSubnetName
+(10.0.2.0/24)",
+				labeljust=l,
+				labelloc=t,
+				lheight=0.46,
+				lp="609.75,1008.6",
+				lwidth=1.27,
+				margin=20,
+				pencolor="#AEB6BE",
+				rankdir=LR,
+				shape=box,
+				style=rounded
+			];
+			"1620c17840124f52bb4cd9a66af30716"	[height=2.7,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/network\network-security-groups-classic.png",
+				label="dbNsg
+(Allow SQL 1433)
+(Block Internet)",
+				pos="637,870.85",
+				shape=none];
+			c66156d55e3e422f9c1d3aeef04199f4	[height=1.9,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/network\network-interfaces.png",
+				label=sqlSrvNIC,
+				pos="736,537.55",
+				shape=none];
+			"1620c17840124f52bb4cd9a66af30716" -> c66156d55e3e422f9c1d3aeef04199f4	[color=red,
+				dir=forward,
+				fontcolor="#2D3436",
+				fontname="Sans-Serif",
+				fontsize=13,
+				label=Protects,
+				lp="671.25,711.4",
+				pos="e,723.5,605.76 687.32,781.25 706.35,781.25 723.5,781.25 723.5,781.25 723.5,781.25 723.5,617.27 723.5,617.27",
+				style=dotted];
+			"2207a3a25a174364bac7e4413f453c25"	[height=3.1,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/compute\vm.png",
+				label="cust1sqlSrv14
+SQL Server 2022
+Standard Edition
+D4s_v3",
+				pos="675,189.85",
+				shape=none];
+			c66156d55e3e422f9c1d3aeef04199f4 -> "2207a3a25a174364bac7e4413f453c25"	[color=darkorange,
+				dir=forward,
+				fontcolor="#2D3436",
+				fontname="Sans-Serif",
+				fontsize=13,
+				pos="e,705.5,301.42 705.5,469.27 705.5,469.27 705.5,312.94 705.5,312.94"];
+			"74a926aba26140e5a8342a3cd499373d"	[height=2.3,
+				image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/network\public-ip-addresses.png",
+				label="SqlPIP
+(Management)",
+				pos="810,870.85",
+				shape=none];
+			"74a926aba26140e5a8342a3cd499373d" -> c66156d55e3e422f9c1d3aeef04199f4	[color=gray,
+				dir=forward,
+				fontcolor="#2D3436",
+				fontname="Sans-Serif",
+				fontsize=13,
+				label="RDP/Management",
+				lp="824.5,711.4",
+				pos="e,773,605.81 773,788.46 773,788.46 773,617.32 773,617.32",
+				style=dashed];
+		}
+		"33dbf7c3632c444ba6d103e70589c9d7" -> d9fb2414efae44cf8a090deec35b69bc	[color=blue,
+			dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="Port 80
+(Backend Pool)",
+			lp="322.12,1053.6",
+			pos="e,429.2,939.11 148.3,1133.2 240.95,1133.2 429.2,1133.2 429.2,1133.2 429.2,1133.2 429.2,950.62 429.2,950.62"];
+		"33dbf7c3632c444ba6d103e70589c9d7" -> "6e684d6b47584a5a9f857cef23327fa0"	[color=blue,
+			dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="Port 80
+(Backend Pool)",
+			lp="152.12,1053.6",
+			pos="e,273,939.08 148.15,1129.2 199.86,1129.2 273,1129.2 273,1129.2 273,1129.2 273,950.59 273,950.59"];
+		"9237415dd9024286964fd8c64855628e" -> "2207a3a25a174364bac7e4413f453c25"	[color=orange,
+			dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="SQL:1433",
+			lp="702.38,363.7",
+			pos="e,655.1,301.25 496.35,447.25 558.22,447.25 655.1,447.25 655.1,447.25 655.1,447.25 655.1,312.77 655.1,312.77"];
+		"66ab7533c60e44b09a65c4b97953e8ee" -> "2207a3a25a174364bac7e4413f453c25"	[color=orange,
+			dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="SQL:1433",
+			lp="570.38,363.7",
+			pos="e,624.96,287.25 317.8,426.31 317.8,359.46 317.8,287.25 317.8,287.25 317.8,287.25 613.44,287.25 613.44,287.25"];
+	}
+	"647093955a5f48409bebb6eadad17179"	[height=1.9,
+		image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/onprem/client\users.png",
+		label="Internet Users",
+		pos="98,1882.9",
+		shape=none];
+	"6329301e8bb948aab4b6f72ee01b996f"	[height=2.7,
+		image="C:\Shelly\Youtube\Azure AI\Arch-diag\Arch_Diagrams\venv\Lib\site-packages\resources/azure/network\public-ip-addresses.png",
+		label="cust1websrvpip
+(Web LB Public IP)
+DNS: cust1websrvlb",
+		pos="98,1592.8",
+		shape=none];
+	"647093955a5f48409bebb6eadad17179" -> "6329301e8bb948aab4b6f72ee01b996f"	[color=blue,
+		dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="HTTPS/HTTP",
+		lp="135.88,1752.2",
+		pos="e,98,1689.8 98,1814.5 98,1814.5 98,1701.3 98,1701.3"];
+	"6329301e8bb948aab4b6f72ee01b996f" -> "33dbf7c3632c444ba6d103e70589c9d7"	[color=blue,
+		dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		pos="e,98,1318.4 98,1495.6 98,1495.6 98,1330 98,1330"];
+}

@@ -1,0 +1,43 @@
+# Python Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Videos folder
+video/
+videos/
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.wmv
+*.flv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Large demo repositories (already have their own git)
+bicep-demo/.git
+terraform-demo/.git
+
+# Output files (optional - uncomment if you don't want to commit generated diagrams)
+# Arch_Diagrams/diagrams/*.png
+# Arch_Diagrams/diagrams/*.dot
+# Arch_Diagrams/diagrams/*.drawio

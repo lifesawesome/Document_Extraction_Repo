@@ -1,0 +1,302 @@
+digraph "Document Extraction Pipeline — System Architecture" {
+	graph [bb="0,0,1015,1698.1",
+		bgcolor=white,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=14,
+		label="Document Extraction Pipeline — System Architecture",
+		lheight=0.24,
+		lp="507.5,12.625",
+		lwidth=4.50,
+		nodesep=1.0,
+		pad=0.6,
+		rankdir=TB,
+		ranksep=1.5,
+		splines=spline
+	];
+	node [fixedsize=true,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		height=1.4,
+		imagescale=true,
+		label="\N",
+		labelloc=b,
+		shape=box,
+		style=rounded,
+		width=1.4
+	];
+	edge [color="#7B8894"];
+	subgraph cluster_Ingestion {
+		graph [bb="183,1222.4,323,1452.5",
+			bgcolor="#E3F2FD",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label=Ingestion,
+			labeljust=l,
+			labelloc=t,
+			lheight=0.23,
+			lp="218,1440.3",
+			lwidth=0.75,
+			margin=20,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		"32646d91ec4649538eed6491644e6b13"	[height=2.3,
+			image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/storage\blob-storage.png",
+			label="Blob Storage
+pdf-staging",
+			pos="253,1325.2",
+			shape=none];
+	}
+	subgraph "cluster_Deterministic Extraction" {
+		graph [bb="177,932.35,330,1162.4",
+			bgcolor="#E8F5E9",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="Deterministic Extraction",
+			labeljust=l,
+			labelloc=t,
+			lheight=0.23,
+			lp="253.62,1150.2",
+			lwidth=1.91,
+			margin=20,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		f06af8ce174143cf84e950e11da0a67e	[height=2.3,
+			image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/aimachinelearning\cognitive-services.png",
+			label="Azure Content Understanding (S0)
+107 Fields · Per-field Confidence",
+			pos="253,1035.1",
+			shape=none];
+	}
+	subgraph "cluster_Processing & AI Enhancement" {
+		graph [bb="8,337.75,323,872.35",
+			bgcolor="#FFF8E1",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="Processing & AI Enhancement",
+			labeljust=l,
+			labelloc=t,
+			lheight=0.23,
+			lp="102.62,860.1",
+			lwidth=2.41,
+			margin=20,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		"25bd8b4d357e40dca18165613b38d69c"	[height=2.3,
+			image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/programming/language\python.png",
+			label="Pipeline Orchestrator
+Normalize → Validate → Route",
+			pos="253,745.05",
+			shape=none];
+		b608d13a75364ef19a940e0dd2ebf133	[height=2.3,
+			image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/aimachinelearning\azure-openai.png",
+			label="Azure OpenAI GPT-5.2
+Gap-Fill · Temp=0.0 · JSON",
+			pos="78,440.55",
+			shape=none];
+		"25bd8b4d357e40dca18165613b38d69c" -> b608d13a75364ef19a940e0dd2ebf133	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="Gap Fields",
+			lp="177,600",
+			pos="e,106.58,522.93 202.64,686.7 183.68,663.37 162.89,635.51 147,608.25 133.41,584.93 121.15,558.41 110.86,533.5",
+			style=dashed];
+		"5a3a631b57b547d9818311b66c1f37bf"	[height=2.3,
+			image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/aimachinelearning\azure-openai.png",
+			label="Exception Agent
+CORRECT / ACCEPT / ESCALATE",
+			pos="251,440.55",
+			shape=none];
+		"25bd8b4d357e40dca18165613b38d69c" -> "5a3a631b57b547d9818311b66c1f37bf"	[color=orange,
+			dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="Edge Cases",
+			lp="259,600",
+			pos="e,230.61,523.16 234.11,662.57 230.73,644.77 227.74,625.95 226,608.25 223.64,584.24 225.39,558.4 228.85,534.41",
+			style=dashed];
+	}
+	subgraph "cluster_Confidence Routing" {
+		graph [bb="354,323.35,667,582.25",
+			bgcolor="#FFEBEE",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="Confidence Routing",
+			labeljust=l,
+			labelloc=t,
+			lheight=0.23,
+			lp="418.25,570",
+			lwidth=1.56,
+			margin=20,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		"35ce3e0c0f80487b9c933aa5838fc69c"	[height=2.7,
+			image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/database\cosmos-db.png",
+			label="Cosmos DB (Serverless)
+Auto-Accept ≥0.85
+Agent Review 0.60–0.84",
+			pos="424,440.55",
+			shape=none];
+		b5f6b2f91fce4f9a8a60a5a073ec21fc	[height=2.3,
+			image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/integration\service-bus.png",
+			label="Service Bus
+Human Review <0.60",
+			pos="597,440.55",
+			shape=none];
+	}
+	subgraph "cluster_Output & Storage" {
+		graph [bb="354,33.25,494,263.35",
+			bgcolor="#F3E5F5",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="Output & Storage",
+			labeljust=l,
+			labelloc=t,
+			lheight=0.23,
+			lp="412.62,251.1",
+			lwidth=1.41,
+			margin=20,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		"79838bf0bd874afe99a41178437b7d09"	[height=2.3,
+			image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/storage\blob-storage.png",
+			label="Blob Storage
+extraction-results",
+			pos="424,136.05",
+			shape=none];
+	}
+	subgraph cluster_Observability {
+		graph [bb="706,343.75,834,561.85",
+			bgcolor="#F1F8E9",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label=Observability,
+			labeljust=l,
+			labelloc=t,
+			lheight=0.23,
+			lp="751.12,549.6",
+			lwidth=1.03,
+			margin=14,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		a3c0d3c824254e248c52518dd823d7a4	[height=2.3,
+			image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/devops\application-insights.png",
+			label="Application Insights
+OpenTelemetry",
+			pos="770,440.55",
+			shape=none];
+	}
+	subgraph cluster_Security {
+		graph [bb="879,343.75,1007,561.85",
+			bgcolor="#FCE4EC",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label=Security,
+			labeljust=l,
+			labelloc=t,
+			lheight=0.23,
+			lp="910.25,549.6",
+			lwidth=0.65,
+			margin=14,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		"5fdaab74698b491aa147a9d2f427a759"	[height=2.3,
+			image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/security\key-vaults.png",
+			label="Key Vault
+Managed Identity · RBAC",
+			pos="943,440.55",
+			shape=none];
+	}
+	"6fbe1448deb3448b9c0f61ac2eebfce3"	[height=2.3,
+		image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/onprem/client\users.png",
+		label="Document
+Upload",
+		pos="253,1615.3",
+		shape=none];
+	"6fbe1448deb3448b9c0f61ac2eebfce3" -> "32646d91ec4649538eed6491644e6b13"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Upload PDF",
+		lp="286.38,1470.3",
+		pos="e,253,1407.7 253,1532.6 253,1497.1 253,1455.5 253,1418.9"];
+	"32646d91ec4649538eed6491644e6b13" -> f06af8ce174143cf84e950e11da0a67e	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Submit Analysis",
+		lp="298.75,1180.2",
+		pos="e,253,1117.6 253,1242.5 253,1207 253,1165.4 253,1128.8"];
+	f06af8ce174143cf84e950e11da0a67e -> "25bd8b4d357e40dca18165613b38d69c"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Structured Fields + Confidence",
+		lp="342.25,890.1",
+		pos="e,253,827.54 253,952.36 253,916.93 253,875.28 253,838.72"];
+	"25bd8b4d357e40dca18165613b38d69c" -> "35ce3e0c0f80487b9c933aa5838fc69c"	[color=green,
+		dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="≥0.85 Auto-Accept",
+		lp="391.75,600",
+		pos="e,373.66,530.6 299.05,662.59 320.3,625 345.71,580.05 368.05,540.52"];
+	"25bd8b4d357e40dca18165613b38d69c" -> b5f6b2f91fce4f9a8a60a5a073ec21fc	[color=red,
+		dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="<0.60 Human Review",
+		lp="560.54,600",
+		pos="e,555.19,523.18 303.36,721.03 358.87,693.82 448.46,644.29 510,582.25 524.42,567.71 537.56,550.36 549.01,532.89"];
+	"25bd8b4d357e40dca18165613b38d69c" -> a3c0d3c824254e248c52518dd823d7a4	[color=green,
+		dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label=Telemetry,
+		lp="695,600",
+		pos="e,729.96,523.17 303.13,738.63 391.77,726.49 577.02,689.18 685,582.25 699.54,567.85 712.61,550.47 723.88,532.92",
+		style=dotted];
+	"25bd8b4d357e40dca18165613b38d69c" -> "5fdaab74698b491aa147a9d2f427a759"	[color=gray,
+		dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label=Secrets,
+		lp="859.45,600",
+		pos="e,904.28,523.21 303.11,742.35 412.93,736.28 678.82,708.59 852,582.25 869.99,569.12 885.36,551.26 898.07,532.67",
+		style=dotted];
+	"35ce3e0c0f80487b9c933aa5838fc69c" -> "79838bf0bd874afe99a41178437b7d09"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Final Records",
+		lp="462.25,281.1",
+		pos="e,424,218.69 424,343.42 424,307.2 424,266.1 424,230.17"];
+}

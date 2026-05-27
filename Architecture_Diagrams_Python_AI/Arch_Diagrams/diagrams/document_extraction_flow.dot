@@ -1,0 +1,233 @@
+digraph "Document Extraction Pipeline — Execution Flow" {
+	graph [bb="0,0,1459.5,699.25",
+		bgcolor=white,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=14,
+		label="Document Extraction Pipeline — Execution Flow",
+		lheight=0.24,
+		lp="729.76,12.625",
+		lwidth=4.06,
+		nodesep=0.8,
+		pad=0.5,
+		rankdir=LR,
+		ranksep=1.0,
+		splines=ortho
+	];
+	node [fixedsize=true,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		height=1.4,
+		imagescale=true,
+		label="\N",
+		labelloc=b,
+		shape=box,
+		style=rounded,
+		width=1.4
+	];
+	edge [color="#7B8894"];
+	subgraph "cluster_1. Deduplication" {
+		graph [bb="388.1,243.25,508.9,481.25",
+			bgcolor="#E3F2FD",
+			fontname="Sans-Serif",
+			fontsize=12,
+			label="1. Deduplication",
+			labeljust=l,
+			lheight=0.22,
+			lp="439.23,469.38",
+			lwidth=1.20,
+			margin=10,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		e05b0913a65e49a5b7e09a29faa4dfd0	[height=2.7,
+			image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/database\cosmos-db.png",
+			label="Cosmos DB
+SHA-256
+Hash Check",
+			pos="448.5,350.25",
+			shape=none];
+	}
+	subgraph "cluster_2. CU Extraction" {
+		graph [bb="611.9,243.25,732.7,481.25",
+			bgcolor="#E8F5E9",
+			fontname="Sans-Serif",
+			fontsize=12,
+			label="2. CU Extraction",
+			labeljust=l,
+			lheight=0.22,
+			lp="662.65,469.38",
+			lwidth=1.19,
+			margin=10,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		"7159a6a8945b4450861d0194471aad91"	[height=2.7,
+			image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/aimachinelearning\cognitive-services.png",
+			label="Content
+Understanding
+(Deterministic)",
+			pos="672.3,350.25",
+			shape=none];
+	}
+	subgraph "cluster_3. AI Gap-Fill" {
+		graph [bb="848.45,243.25,969.25,481.25",
+			bgcolor="#F3E5F5",
+			fontname="Sans-Serif",
+			fontsize=12,
+			label="3. AI Gap-Fill",
+			labeljust=l,
+			lheight=0.22,
+			lp="891.7,469.38",
+			lwidth=0.98,
+			margin=10,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		e093895c254a4372a2265123a6645efb	[height=2.7,
+			image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/aimachinelearning\azure-openai.png",
+			label="GPT-4.1
+Verify/Correct
+Gaps Only",
+			pos="908.85,350.25",
+			shape=none];
+	}
+	subgraph "cluster_4. Normalize & Validate" {
+		graph [bb="1078.3,243.25,1218,481.25",
+			bgcolor="#FFF8E1",
+			fontname="Sans-Serif",
+			fontsize=12,
+			label="4. Normalize & Validate",
+			labeljust=l,
+			lheight=0.22,
+			lp="1148.1,469.38",
+			lwidth=1.72,
+			margin=10,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		a42de50e941246ef86e581f4664c24e9	[height=2.7,
+			image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/programming/language\python.png",
+			label="Business Rules
+Type Coercion
+Cross-field Checks",
+			pos="1147.6,350.25",
+			shape=none];
+	}
+	subgraph "cluster_5. Confidence Routing" {
+		graph [bb="1324.8,33.25,1458.5,691.25",
+			bgcolor="#FFEBEE",
+			fontname="Sans-Serif",
+			fontsize=12,
+			label="5. Confidence Routing",
+			labeljust=l,
+			lheight=0.22,
+			lp="1391.6,679.38",
+			lwidth=1.64,
+			margin=10,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		bfaadef1ac1a4b82a19b8e5e4e03e80e	[height=2.3,
+			image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/database\cosmos-db.png",
+			label="Auto-Accept
+≥0.85",
+			pos="1391.1,574.25",
+			shape=none];
+		c5d9ee78cc3f44e5a9f7e7b288603cd8	[height=2.3,
+			image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/aimachinelearning\azure-openai.png",
+			label="Agent Review
+0.60–0.84",
+			pos="1391.1,350.25",
+			shape=none];
+		"0cf22d753c3a4b3d9637d13bc2c53185"	[height=2.3,
+			image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/integration\service-bus.png",
+			label="Human Review
+<0.60",
+			pos="1391.1,126.25",
+			shape=none];
+	}
+	f48ab9f576ee4fd58b70bb14cef5ae0d	[height=1.9,
+		image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/onprem/client\users.png",
+		label=Upload,
+		pos="50.4,350.25",
+		shape=none];
+	fde067ac21bd487daf75f0dfe03c6e7c	[height=2.3,
+		image="C:\Users\gabhardwaj\AppData\Local\Programs\Python\Python313\Lib\site-packages\resources/azure/storage\blob-storage.png",
+		label="Blob Storage
+pdf-staging",
+		pos="246.45,350.25",
+		shape=none];
+	f48ab9f576ee4fd58b70bb14cef5ae0d -> fde067ac21bd487daf75f0dfe03c6e7c	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label=PDF,
+		lp="148.43,358.5",
+		pos="e,196.35,350.25 100.63,350.25 100.63,350.25 184.83,350.25 184.83,350.25"];
+	fde067ac21bd487daf75f0dfe03c6e7c -> e05b0913a65e49a5b7e09a29faa4dfd0	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label=Hash,
+		lp="347.48,358.5",
+		pos="e,398.2,350.25 296.65,350.25 296.65,350.25 386.69,350.25 386.69,350.25"];
+	e05b0913a65e49a5b7e09a29faa4dfd0 -> "7159a6a8945b4450861d0194471aad91"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="New Doc",
+		lp="560.4,358.5",
+		pos="e,622.24,350.25 498.73,350.25 498.73,350.25 610.73,350.25 610.73,350.25"];
+	"7159a6a8945b4450861d0194471aad91" -> e093895c254a4372a2265123a6645efb	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Fields +
+Confidence",
+		lp="790.58,366.75",
+		pos="e,858.76,350.25 722.47,350.25 722.47,350.25 847.24,350.25 847.24,350.25"];
+	e093895c254a4372a2265123a6645efb -> a42de50e941246ef86e581f4664c24e9	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Enhanced
+Result",
+		lp="1023.8,366.75",
+		pos="e,1097.3,350.25 959.2,350.25 959.2,350.25 1085.8,350.25 1085.8,350.25"];
+	a42de50e941246ef86e581f4664c24e9 -> bfaadef1ac1a4b82a19b8e5e4e03e80e	[color=green,
+		dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="≥0.85",
+		lp="1271.4,510.5",
+		pos="e,1391.5,491.67 1197.9,440.25 1269.3,440.25 1391.5,440.25 1391.5,440.25 1391.5,440.25 1391.5,480.16 1391.5,480.16"];
+	a42de50e941246ef86e581f4664c24e9 -> c5d9ee78cc3f44e5a9f7e7b288603cd8	[color=orange,
+		dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="0.60–0.84",
+		lp="1271.4,358.5",
+		pos="e,1341,350.25 1197.8,350.25 1197.8,350.25 1329.5,350.25 1329.5,350.25"];
+	a42de50e941246ef86e581f4664c24e9 -> "0cf22d753c3a4b3d9637d13bc2c53185"	[color=red,
+		dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="<0.60",
+		lp="1271.4,206.5",
+		pos="e,1391.5,208.83 1197.9,260.25 1269.3,260.25 1391.5,260.25 1391.5,260.25 1391.5,260.25 1391.5,220.34 1391.5,220.34"];
+}
